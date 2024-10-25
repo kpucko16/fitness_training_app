@@ -52,7 +52,3 @@ class User:
             "Workout History:\n"
             f"{workout_history}"
         )
-
-
-user1 = User('Kris', 'Male', 31, 103, 183, 'lose weight', 'moderate')
-print(user1)
