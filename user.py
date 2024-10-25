@@ -56,6 +56,7 @@ class User:
 
     def add_workout(self, workout):
         self.workout_history.append(workout)
+        print(f"Workout added for {self.name}: {workout}")
 
     def __repr__(self):
         workout_history = "\n".join(f"- {workout}" for workout in self.workout_history)

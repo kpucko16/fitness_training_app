@@ -37,29 +37,37 @@ def edit_profile():
         print("No user found with that name. Please create an account or log in.")
         return
 
-    print('Please select the attribute that you would like to adjust: 1.Name\n'
+    print('Please select the attribute that you would like to adjust:\n'
+          '1.Name\n'
           '2.Gender\n'
           '3.Age\n'
           '4.Weight\n'
           '5.Height\n'
-          '6.Enter new goal (lose weight/gain muscle)\n'
-          '7.Enter new activity level (low/moderate/high')
-    selected_change = int(input('Please select your option:'))
-    if selected_change == 1:
-        new_name = input('Please input the desired name: ')
-        user.name = new_name
-
-    elif selected_change == 3:
-        new_name = input('Please input the desired name: ')
-        user.name = new_name
-
-    elif selected_change == 2:
-        new_age = int(input('Please input the new age: '))
-        user.age = new_age
-
-    new_goal = input("Enter new goal (lose weight/gain muscle) or press Enter to keep current: ")
-    if new_goal:
-        user.goal = new_goal
+          '6.Enter new goal \n'
+          '7.Enter new activity level ')
+    selected_change = int(input('Please select your option: '))
+    if selected_change:
+        if selected_change == 1:
+            new_name = input('Please input the desired name: ')
+            user.name = new_name
+        elif selected_change == 2:
+            new_gender = input('Please input the new gender: ')
+            user.gender = new_gender
+        elif selected_change == 3:
+            new_age = int(input('Please input the new age: '))
+            user.age = new_age
+        elif selected_change == 4:
+            new_weight = float(input('Please input the new weight (kg): '))
+            user.weight = new_weight
+        elif selected_change == 5:
+            new_height = float(input('Please input the new height (cm): '))
+            user.height = new_height
+        elif selected_change == 6:
+            new_goal = input('Please input the new goal (lose weight/gain muscle): ')
+            user.goal = new_goal
+        elif selected_change == 7:
+            new_activity_level = input('Please input the new activity level (low/moderate/high): ')
+            user.activity_level = new_activity_level
     print("Profile updated successfully!")
 
 
@@ -71,9 +79,16 @@ def view_exercises():
             print(exercise)
 
 
-def generate_workout(current_user):
-    if not current_user:
+def generate_workout():
+    current_user_name = input('Please enter the user that you would like the workout to be generated for:')
+    if not current_user_name:
         print("No user is currently logged in. Please create an account or log in.")
+        return
+
+    current_user = next((user for user in User.users if user.name == current_user_name), None)
+
+    if not current_user:
+        print("User not found. Please check the username and try again.")
         return
 
     workout_choice = input("Choose a workout type (Push, Pull, Legs): ").capitalize()
@@ -82,7 +97,7 @@ def generate_workout(current_user):
         print("Invalid workout type selected.")
         return
 
-    selected_exercises = random.sample(workout_types[workout_choice], k=6)  # Choose 3 random exercises
+    selected_exercises = random.sample(workout_types[workout_choice], k=5)  # Choose 5 random exercises
     print(f"\n--- Your {workout_choice} Workout ---")
     for exercise in selected_exercises:
         print(exercise)
