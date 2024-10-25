@@ -42,6 +42,3 @@ workout_types = {
         Exercise("Walking Lunge", "Targets legs and glutes", "Intermediate"),
     ]
 }
-
-for exercise in workout_types['Pull']:
-    print(exercise)

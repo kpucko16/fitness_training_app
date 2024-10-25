@@ -1,4 +1,5 @@
 class User:
+    users = []
     def __init__(self, name: str, gender: str, age: int, weight: float, height: float, goal: str, activity_level: str = 'moderate'):
         self.name = name
         self.gender = gender
@@ -7,7 +8,23 @@ class User:
         self.height = height
         self.goal = goal
         self.activity_level = activity_level
+        User.users.append(self)
         self.workout_history = []
+
+    @classmethod
+    def user_exists(cls, name: str) -> bool:
+        """Check if a user with the given name already exists."""
+        return any(user.name == name for user in cls.users)
+
+    @classmethod
+    def create_user(cls, name: str, gender: str, age: int, weight: float, height: float, goal: str,
+                    activity_level: str = 'moderate'):
+        """Create a new user if the user does not already exist."""
+        if cls.user_exists(name):
+            print(f"User '{name}' already exists.")
+            return None
+        else:
+            return cls(name, gender, age, weight, height, goal, activity_level)
 
     def calculate_bmi(self):
         # BMI formula: weight (kg) / height (m)^2
